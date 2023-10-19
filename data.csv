@@ -1,0 +1,16 @@
+metric, open_stack, value
+cpu_usage, KA, 3.86
+cpu_usage, StarlingX, 27.65
+memory_usage, KA, 11.09
+memory_usage, StarlingX, 11.615
+internal_throughput_rate, KA, 21.3
+internal_throughput_rate, StarlingX, 29.5
+single_vm_res_time, KA, 15
+single_vm_res_time, StarlingX, 26
+single_boot_time, KA, 34
+single_boot_time, StarlingX, 21
+rtt, KA, 0.442
+rtt, StarlingX, 0.212
+external_throughput_rate, KA, 758.63
+external_throughput_rate, StarlingX, 752.23
+
