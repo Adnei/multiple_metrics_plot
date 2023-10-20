@@ -1,6 +1,8 @@
-import numpy as np
+# import numpy as np
 import pandas as pd
-import plotly.express as plt
+
+# import plotly.express as px
+import plotly.graph_objects as go
 from collections import OrderedDict
 
 raw_data = pd.read_csv("data.csv", skipinitialspace=True)
@@ -24,3 +26,34 @@ for metric in metric_list:
     result_data = pd.concat([result_data, uniform_data])
 
 print(result_data)
+
+# fig = px.line_polar(result_data, r="value", theta="metric", line_close=True)
+# fig.update_traces(fill="toself")
+# fig.show()
+
+fig = go.Figure()
+
+fig.add_trace(
+    go.Scatterpolar(
+        r=list(result_data.value[result_data.open_stack == "KA"]),
+        theta=list(result_data.metric[result_data.open_stack == "KA"]),
+        fill="toself",
+        name="KA",
+    )
+)
+
+fig.add_trace(
+    go.Scatterpolar(
+        r=list(result_data.value[result_data.open_stack == "StarlingX"]),
+        theta=list(result_data.metric[result_data.open_stack == "StarlingX"]),
+        fill="toself",
+        name="StarlingX",
+    )
+)
+
+
+fig.update_layout(
+    polar=dict(radialaxis=dict(visible=True, range=[0, 1])), showlegend=True
+)
+
+fig.show()
