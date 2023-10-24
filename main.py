@@ -9,9 +9,10 @@ raw_data = pd.read_csv("data.csv", skipinitialspace=True)
 metric_list = list(OrderedDict.fromkeys(list(raw_data["metric"])))
 result_data = pd.DataFrame(columns=["metric", "open_stack", "value"])
 for metric in metric_list:
+    if metric == "internal_throughput_rate" or metric == "external_throughput_rate":
+        continue
     metric_df = raw_data[raw_data.metric == metric]
     # gt_value = metric_df.value.max()
-
     uniform_data = pd.DataFrame(
         {
             "metric": metric,
