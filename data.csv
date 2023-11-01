@@ -1,19 +1,19 @@
-metric, open_stack, value
-cpu_usage, KA, 3.86
-cpu_usage, StarlingX, 27.65
-memory_usage, KA, 11.09
-memory_usage, StarlingX, 11.615
-internal_throughput_rate, KA, 21.3
-internal_throughput_rate, StarlingX, 29.5
-wasted_internal_throughput_rate, KA, 10.7
-wasted_internal_throughput_rate, StarlingX, 2.5
-single_vm_res_time, KA, 15
-single_vm_res_time, StarlingX, 26
-single_boot_time, KA, 34
-single_boot_time, StarlingX, 21
-rtt, KA, 0.442
-rtt, StarlingX, 0.212
-external_throughput_rate, KA, 0.75863
-external_throughput_rate, StarlingX, 0.75223
-wasted_external_throughput_rate, KA, 0.24137 
-wasted_external_throughput_rate, StarlingX, 0.24777
+metric, open_stack, value, unit, label
+cpu_usage, KA, 3.86, %, CPU Usage
+cpu_usage, StarlingX, 27.65, %, CPU Usage
+memory_usage, KA, 11.09, GB, Memory Usage
+memory_usage, StarlingX, 11.615, GB, Memory Usage
+internal_throughput_rate, KA, 21.3, Gbps, Internal Throughput Rate
+internal_throughput_rate, StarlingX, 29.5, Gpbs, Internal Throughput Rate
+wasted_internal_throughput_rate, KA, 10.7, Gbps, Unused Internal Throughput Rate
+wasted_internal_throughput_rate, StarlingX, 2.5, Gbps, Unused Internal Throughput Rate
+single_vm_res_time, KA, 15, s, Single VM Resource Provisioning Time
+single_vm_res_time, StarlingX, 26, s, Single VM Resource Provisioning Time
+single_boot_time, KA, 34, s, Single VM Boot Time
+single_boot_time, StarlingX, 21, s, Single VM Boot Time
+rtt, KA, 0.442, ms, RTT Ping
+rtt, StarlingX, 0.212, ms, RTT Ping
+external_throughput_rate, KA, 0.75863, Gbps, External Throughput Rate
+external_throughput_rate, StarlingX, 0.75223, Gbps, External Throughput Rate
+wasted_external_throughput_rate, KA, 0.24137, Gbps, Unused External Throughput Rate
+wasted_external_throughput_rate, StarlingX, 0.24777, Gbps, Unused External Throughput Rate
