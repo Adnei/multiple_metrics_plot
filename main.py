@@ -1,5 +1,6 @@
 # import numpy as np
 import pandas as pd
+from pandas.io.parsers.readers import fill
 
 # import plotly.express as px
 import plotly.graph_objects as go
@@ -7,14 +8,16 @@ from collections import OrderedDict
 
 raw_data = pd.read_csv("data.csv", skipinitialspace=True)
 metric_list = list(OrderedDict.fromkeys(list(raw_data["metric"])))
-result_data = pd.DataFrame(columns=["metric", "label", "open_stack", "value"])
+result_data = pd.DataFrame(
+    columns=["metric", "label" "unit_label", "open_stack", "value", "perspective"]
+)
 for metric in metric_list:
     if metric == "internal_throughput_rate" or metric == "external_throughput_rate":
         continue
     metric_df = raw_data[raw_data.metric == metric]
     greater = list(metric_df.open_stack[metric_df.value == metric_df.value.max()])[0]
     lower = list(metric_df.open_stack[metric_df.value == metric_df.value.min()])[0]
-    label = (
+    unit_label = (
         list(metric_df.label)[0]
         + " ("
         + str(metric_df.value.max())
@@ -22,13 +25,16 @@ for metric in metric_list:
         + list(metric_df.unit)[0]
         + ")"
     )
+    perspective = list(metric_df.perspective)[0]
 
     uniform_data = pd.DataFrame(
         {
             "metric": metric,
-            "label": label,
+            "label": list(metric_df.label)[0],
+            "unit_label": unit_label,
             "open_stack": [greater, lower],
             "value": [1, metric_df.value.min() / metric_df.value.max()],
+            "perspective": perspective,
         }
     )
 
@@ -42,23 +48,50 @@ print(result_data)
 
 fig = go.Figure()
 
+new_fig = go.Figure()
+
 fig.add_trace(
     go.Scatterpolar(
-        r=list(result_data.value[result_data.open_stack == "KA"]),
-        theta=list(result_data.label[result_data.open_stack == "KA"]),
+        r=result_data.value[result_data.open_stack == "KA"],
+        theta=result_data.unit_label[result_data.open_stack == "KA"],
         fill="toself",
         name="KA",
+        legendgroup="default",
+        legendgrouptitle_text="KA vs. StarlingX",
     )
 )
 
 fig.add_trace(
     go.Scatterpolar(
-        r=list(result_data.value[result_data.open_stack == "StarlingX"]),
-        theta=list(result_data.label[result_data.open_stack == "StarlingX"]),
+        r=result_data.value[result_data.open_stack == "StarlingX"],
+        theta=result_data.unit_label[result_data.open_stack == "StarlingX"],
         fill="toself",
         name="StarlingX",
+        legendgroup="default",
     )
 )
+
+for metric in metric_list:
+    if metric == "internal_throughput_rate" or metric == "external_throughput_rate":
+        continue
+
+    perspective = list(result_data.perspective[result_data.metric == metric])[0]
+    legend_title = "Provider Metrics"
+
+    if perspective == "user":
+        legend_title = "User Metrics"
+
+    fig.add_trace(
+        go.Scatterpolar(
+            r=result_data.value[result_data.metric == metric],
+            theta=result_data.label[result_data.metric == metric],
+            visible="legendonly",
+            name=list(result_data.label[result_data.metric == metric])[0],
+            legendgroup=perspective,
+            legendgrouptitle_text=legend_title,
+            line=dict(color="black"),
+        )
+    )
 
 
 fig.update_layout(
