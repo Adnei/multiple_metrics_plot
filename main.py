@@ -1,10 +1,14 @@
 # import numpy as np
+import os
 import pandas as pd
 from pandas.io.parsers.readers import fill
 
 # import plotly.express as px
 import plotly.graph_objects as go
 from collections import OrderedDict
+import plotly.io as pio
+
+pio.kaleido.scope.mathjax = None
 
 raw_data = pd.read_csv("data.csv", skipinitialspace=True)
 metric_list = list(OrderedDict.fromkeys(list(raw_data["metric"])))
@@ -46,9 +50,12 @@ print(result_data)
 # fig.update_traces(fill="toself")
 # fig.show()
 
-fig = go.Figure()
-
-new_fig = go.Figure()
+pdf_layout = go.Layout(
+    autosize=False,
+    width=1080,
+    height=720,
+)
+fig = go.Figure(layout=pdf_layout)
 
 fig.add_trace(
     go.Scatterpolar(
@@ -95,7 +102,13 @@ for metric in metric_list:
 
 
 fig.update_layout(
-    polar=dict(radialaxis=dict(visible=True, range=[0, 1])), showlegend=True
+    polar=dict(radialaxis=dict(visible=True, range=[0, 1])),
+    showlegend=True,
 )
 
 fig.show()
+
+if not os.path.exists("plots"):
+    os.mkdir("plots")
+
+fig.write_image(format="pdf", file="plots/radar.pdf")
