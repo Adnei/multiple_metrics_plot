@@ -7,10 +7,10 @@ provider, internal_throughput_rate, KA, 21.3, Gbps, Internal Throughput Rate
 provider, internal_throughput_rate, StarlingX, 29.5, Gpbs, Internal Throughput Rate
 provider, wasted_internal_throughput_rate, KA, 10.7, Gbps, Unused Internal Throughput Rate
 provider, wasted_internal_throughput_rate, StarlingX, 2.5, Gbps, Unused Internal Throughput Rate
-user, single_vm_res_time, KA, 15, s, Single VM Resource Provisioning Time
-user, single_vm_res_time, StarlingX, 26, s, Single VM Resource Provisioning Time
-user, single_boot_time, KA, 34, s, Single VM Boot Time
-user, single_boot_time, StarlingX, 21, s, Single VM Boot Time
+user, single_boot_time, KA, 15, s, Single VM Boot Time 
+user, single_boot_time, StarlingX, 26, s, Single VM Boot Time
+user, single_vm_res_time, KA, 34, s, Single VM Resource Provisioning 
+user, single_vm_res_time, StarlingX, 21, s, Single VM Resource Provisioning
 user, rtt, KA, 0.442, ms, RTT Ping
 user, rtt, StarlingX, 0.212, ms, RTT Ping
 provider, external_throughput_rate, KA, 0.75863, Gbps, External Throughput Rate

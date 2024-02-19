@@ -106,9 +106,23 @@ fig.update_layout(
     showlegend=True,
 )
 
+fig.update_layout(
+    legend=dict(
+        entrywidth=0.3,  # change it to 0.3
+        entrywidthmode="fraction",
+        orientation="h",
+        y=-0.2,
+        xanchor="center",
+        x=0.5,
+    ),
+    font=dict(
+        size=18,
+    ),
+)
+
 fig.show()
 
 if not os.path.exists("plots"):
     os.mkdir("plots")
 
-fig.write_image(format="pdf", file="plots/radar.pdf")
+fig.write_image(format="pdf", file="plots/radar_fonte_18.pdf")
