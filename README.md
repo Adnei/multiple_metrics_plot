@@ -3,4 +3,4 @@
 
 Plot Example:
 
-![plot](plots/radar.pdf)
+![plot](plots/radar2.pdf)
